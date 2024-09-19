@@ -29,6 +29,7 @@ public class Caesar extends Alphabet {
             if(key > language.length){
                 key = key % language.length;
             }
+
             String text = "";
             char symbol;
             boolean addSymbolFlag;
@@ -66,6 +67,15 @@ public class Caesar extends Alphabet {
             throw new FileNotFoundException();
         }catch (IOException e){
             e.printStackTrace();
+        }
+    }
+
+    public void decrypt(String pathInputFile,int key, String pathOutputFile) throws  FileNotFoundException{
+        if(language.length > key){
+            encrypt(pathInputFile, language.length - key, pathOutputFile);
+        }else{
+           key = key % language.length;
+            encrypt(pathInputFile, language.length - key, pathOutputFile);
         }
     }
 }

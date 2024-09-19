@@ -12,6 +12,7 @@ public class App {
         while(flag) {
             try {
                 caesar.encrypt("newFile.txt", 44, "res.txt");
+                caesar.decrypt("res.txt", 44, "inputRes.txt");
                 flag = false;
             } catch (FileNotFoundException e) {
                 System.out.println("FIND");
