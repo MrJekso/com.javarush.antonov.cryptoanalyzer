@@ -6,10 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class App {
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        test();
+    }
+
+    public static void test(){
         boolean flag = true;
         Caesar caesar = Caesar.get();
-        while(flag) {
+        while (flag) {
             try {
                 caesar.encrypt("newFile.txt", 44, "res.txt");
                 caesar.decrypt("res.txt", 44, "inputRes.txt");
