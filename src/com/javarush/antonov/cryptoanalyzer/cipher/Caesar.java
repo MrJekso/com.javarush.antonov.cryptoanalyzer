@@ -83,4 +83,14 @@ public class Caesar extends Alphabet {
             encrypt(pathInputFile, language.length - key, pathOutputFile);
         }
     }
+
+    public void brutForce(String pathInputFile,String pathOutputDirectory) throws FileNotFoundException{
+        File directory = new File(pathOutputDirectory);
+        if(!(directory.exists())){
+            directory.mkdir();
+        }
+        for(int i = 1 ; i < language.length; ++i){
+            decrypt(pathInputFile, i , (pathOutputDirectory +"/result_" + i));
+        }
+    }
 }
