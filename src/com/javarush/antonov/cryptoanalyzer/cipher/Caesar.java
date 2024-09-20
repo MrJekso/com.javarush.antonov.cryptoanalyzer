@@ -35,14 +35,14 @@ public class Caesar extends Alphabet {
                 key = key % language.length;
             }
 
-            String text = "";
+            StringBuilder text = new StringBuilder();
             char symbol;
             boolean addSymbolFlag;
             while (fir.ready()) {
                 addSymbolFlag = true;
                 symbol = (char) fir.read();
                 if (symbol == '\n') {
-                    text += '\n';
+                    text.append('\n');
                     continue;
                 }
                 for (int i = 0; i < language.length; ++i) {
@@ -56,17 +56,17 @@ public class Caesar extends Alphabet {
                                 symbol = language[i + key];
                             }
                         }
-                        text += symbol;
+                        text.append(symbol);
                         addSymbolFlag = false;
                         break;
                     }
                 }
                 if (addSymbolFlag) {
-                    text += symbol;
+                    text.append(symbol);
                 }
             }
 
-            fow.write(text);
+            fow.write(text.toString());
 
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException();
