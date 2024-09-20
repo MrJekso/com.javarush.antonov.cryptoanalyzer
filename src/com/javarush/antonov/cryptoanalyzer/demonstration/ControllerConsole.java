@@ -6,13 +6,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public abstract class controllerConsole {
+public class ControllerConsole {
 
-    private  controllerConsole(){}
-    private static Scanner scanner = new Scanner(System.in);
-    private static Caesar caesar = Caesar.get();
+    private  ControllerConsole(){}
+    private static ControllerConsole controllerConsole = new ControllerConsole();
+    public static ControllerConsole get() {return  controllerConsole;}
+    private  Scanner scanner = new Scanner(System.in);
+    private  Caesar caesar = Caesar.get();
 
-    public static void сommandHandler() {
+    public void сommandHandler() {
         boolean flag = true;
         while (flag) {
             System.out.print("[ * ] Введите номер необходимой команды: ");
@@ -30,7 +32,7 @@ public abstract class controllerConsole {
                         help();
                         break;
                     case 3:
-                        System.out.println("[ * ] Досвидания");
+                        System.out.println("[ * ] До свидания");
                         flag = false;
                         break;
                     default:
@@ -45,22 +47,41 @@ public abstract class controllerConsole {
         }
     }
 
-    public static void thisEncryptDecrypt(boolean isEncrypt){
+    public  String getString(){
+        return  scanner.nextLine();
+    }
+
+    public  void thisEncryptDecrypt(boolean isEncrypt){
+
+        String pathNameFileInput = "";
+        String pathNameFileOutput = "";
+
+
+
         try {
+
             System.out.println("[ ПРИМЕР ] /home/user/input.txt");
             System.out.print("Введите путь до вашего файла: ");
-            String pathNameFileInput = scanner.next();
-            if(!(new File(pathNameFileInput).isFile())){
-                throw new FileNotFoundException();
-            }
+            pathNameFileInput = scanner.next();
+            System.out.println(pathNameFileInput);
 
             System.out.println("[ ПРИМЕР ] /home/user/result.txt");
             System.out.print("Введите путь и названия файла куда хотите сохранить: ");
-            String pathNameFileOutput = scanner.next();
+            pathNameFileOutput = scanner.next();
 
-            System.out.println("[ ПРИМЕР ] 23");
-            System.out.print("Введите ключ: ");
-            int key = scanner.nextInt();
+            int key;
+
+            while (true) {
+                System.out.println("[ ПРИМЕР ] 23");
+                System.out.print("Введите ключ: ");
+                if(scanner.hasNextInt()) {
+                    key = scanner.nextInt();
+                    break;
+                }else {
+                    System.out.println("\n[ ! Внимание ] Проверьте корректность ввода");
+                    scanner.next();
+                }
+            }
 
             if (isEncrypt) {
                 caesar.encrypt(pathNameFileInput, key, pathNameFileOutput);
@@ -81,10 +102,9 @@ public abstract class controllerConsole {
         System.out.println("[ 3 ] Выйти");
     }
 
-    public static void start(){
+    public void start(){
         System.out.println("[ * ] Добро пожаловать в анализатор алгоритма Цезарь [ * ]");
         help();
         сommandHandler();
     }
-
 }
