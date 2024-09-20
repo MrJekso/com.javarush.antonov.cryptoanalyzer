@@ -32,6 +32,11 @@ public class ControllerConsole {
                         help();
                         break;
                     case 3:
+                        brutForce();
+                        System.out.println("[ УСПЕШНО ]");
+                        help();
+                        break;
+                    case 4:
                         System.out.println("[ * ] До свидания");
                         flag = false;
                         break;
@@ -47,8 +52,29 @@ public class ControllerConsole {
         }
     }
 
-    public  String getString(){
-        return  scanner.nextLine();
+
+    public  void brutForce(){
+
+        String pathNameFileInput = "";
+        String pathNameFileOutput = "";
+
+        try {
+
+            System.out.println("[ ПРИМЕР ] /home/user/input.txt");
+            System.out.print("Введите путь до вашего файла: ");
+            pathNameFileInput = scanner.next();
+
+            System.out.println("[ ПРИМЕР ] /home/user/result");
+            System.out.print("Введите путь и название директории куда сохранить результат: ");
+            pathNameFileOutput = scanner.next();
+
+
+            caesar.brutForce(pathNameFileInput, pathNameFileOutput);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("[ ВНИМАНИЕ ] Файл который вы указали не получилось найти или получить к нему доступ. Попробуйте ещё раз.");
+            brutForce();
+        }
     }
 
     public  void thisEncryptDecrypt(boolean isEncrypt){
@@ -56,14 +82,11 @@ public class ControllerConsole {
         String pathNameFileInput = "";
         String pathNameFileOutput = "";
 
-
-
         try {
 
             System.out.println("[ ПРИМЕР ] /home/user/input.txt");
             System.out.print("Введите путь до вашего файла: ");
             pathNameFileInput = scanner.next();
-            System.out.println(pathNameFileInput);
 
             System.out.println("[ ПРИМЕР ] /home/user/result.txt");
             System.out.print("Введите путь и названия файла куда хотите сохранить: ");
@@ -99,7 +122,8 @@ public class ControllerConsole {
     public static void help(){
         System.out.println("[ 1 ] Зашифровать файл");
         System.out.println("[ 2 ] Расшифровать файл");
-        System.out.println("[ 3 ] Выйти");
+        System.out.println("[ 3 ] Расшифровать перебором");
+        System.out.println("[ 4 ] Выйти");
     }
 
     public void start(){
